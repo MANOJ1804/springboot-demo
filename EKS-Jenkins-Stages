@@ -1,4 +1,4 @@
-# this is parameterized jenkins job to build EKS Cluster
+# this is parameterized jenkins job to build EKS Cluster, you need to take current region and create a s3 bucket and need to change in main.tf inside EKS_Terraform folder
 
 pipeline {
     agent any
