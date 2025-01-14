@@ -1,4 +1,106 @@
-# Use t2.large Instances.
+****** Instance Type
+	Use t2.large Instances.
+
+****** To run Script.sh
+	git clone <git_folder>
+	cd <inside_folder>
+	apt install bat -y
+	batcat script.sh
+	ll (to check permission of all files)
+	chmod +x script.sh (to give executable permission)
+	bash script.sh ( to execute bash script )
+
+***** AWS CLI installation ********
+# install Aws cli 
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    sudo apt-get install unzip -y
+    unzip awscliv2.zip
+    sudo ./aws/install
+
+***** Create IAM role *********
+Create IAM role and Assign to EC2 (so that you can access aws service in CLI)
+	IAM -> Role -> Create Role -> AWS Servies -> EC2(dropdown - Service or use case) -> Next -> Administrator Access ->Next ->RoleName (eg eks-role) -> create Role.
+	(to test)
+	open CLI (using Putty) -> aws s3 ls
+	open EC2 intance -> action -> security -> Modify IAM Role ->IAM Role->select (eks-role) -> Update IAM Role.
+	aws s3 mb s3://manoj-s3-1804    (Create a S3 bucket)
+	--- you need to change the bucket name in (EKS_Terraform/backend.tf)
+		bucket = "manoj-aws1804" # Replace with your actual S3 bucket name
+
+****** Jenkins plugins
+(below are the plugin required to install)
+	Eclipse Termurin installer
+	openJDK-native-plugin
+	Sonarqube scanner
+	pipeline: stage view
+	Docker
+	Docker commons
+	Docker API
+	Docker pipeline
+	docker-build-step
+	maven Integration
+	Kubernates
+	Kubernates client API
+	Kubernates Credentails
+	Kubernates CLI
+	Kubernates Credentail Proivider
+	Kubernates::pipeline::Devops Steps
+
+****** open sonar Qube (default port number is - 9000)
+	To install Sonarqube
+	- docker run -d -p 9000:9000 sonarqube:lts-community
+	- docker ps -a
+	- http://<public_ip_address>:9000/
+		username - admin
+		password - admin
+			(it will ask for password reset)
+
+****** Create a Token & use token with jenkins
+	- click on Administration->Security->users ->create token->give name and copy in some location.-> done (click)
+
+
+****** Jenkins Tools Installations
+
+Jankins ->Manage Jenkins->tools->(here you need to configure)
+ ->JDK Installation (click on Add)
+	Name - jkd17 (any name you can give)
+	click on "Install Automatically"
+		(Install oracle Java SE Developement Kit from the website
+			version
+				Java SE Development Kit 9.0.4 <latest version displayed in Dropdown list>
+	old way ----
+		Select "Add installer -> Install from adoptinum.net"
+		version - jdk-11.0.19+7
+
+ ->Git Installation (click on Add)
+	click on "Install Automatically"
+
+ ->SonarQube Scanner (click on Add)
+	Name - sonar-scanner (any name you can give)
+	click on "Install Automatically"
+	version - <latest version displayed in Dropdown list>
+
+ -> Maven Installation (click on Add)
+	Name - maven3 (any name you can give)
+	click on "Install Automatically"
+	version -  3.9.8
+
+ -> Docker (click on add)
+	Name - docker
+	click on "Install Automatically"
+	select from "Download from docker.com"
+	version: latest
+
+*******  Jenkins Global Credentails ************
+   Manage jenkins -> Credentials -> System -> Global Credentails (unrestricted)
+	         kind - username with password
+                           - username - <docker hub user name "manojkumarab">
+			   - password - <docker hub password "manojkumarab">
+			   - ID <any thing>
+			   -description<any thing>
+
+
+then apply and save
 # serverUrl:  it should be EKS API endpoint ; you need to get credentialsId: 'k8s'
 # once EKS is installed using Jenkins; 
 #   - aws eks update-kubeconfig --name EKS_CLOUD --region ap-south-1
