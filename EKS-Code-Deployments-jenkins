@@ -103,6 +103,8 @@ Jankins ->Manage Jenkins->tools->(here you need to configure)
 then apply and save
 # serverUrl:  it should be EKS API endpoint ; you need to get credentialsId: 'k8s'
 # once EKS is installed using Jenkins; 
+    - sudo su
+    - cd
 #   - aws eks update-kubeconfig --name EKS_CLOUD --region ap-south-1
 #   - cd .kube/
 #   - cat config (copy the content and save in txt file in local system
